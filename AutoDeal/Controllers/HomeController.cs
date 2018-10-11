@@ -16,13 +16,9 @@ namespace AutoDeal.Controllers
         {
             db = context;
         }
-        public async Task<IActionResult> GetUsers() 
+        public  IActionResult GetUsers() 
         {
-            return View(await db.Users.ToListAsync());
-        }
-        public async Task<IActionResult> GetDeals()
-        {
-            return View(await db.Deals.ToListAsync());
+            return View(db.Users.ToList());
         }
         public IActionResult CreateUser()
         {
@@ -34,6 +30,10 @@ namespace AutoDeal.Controllers
             db.Users.Add(user);
             await db.SaveChangesAsync();
             return RedirectToAction("GetUsers"); // checking if new User appeared
+        }
+        public IActionResult GetDeals()
+        {
+            return View(db.Deals.ToList());
         }
         public IActionResult CreateDeal()
         {

@@ -5,8 +5,8 @@
 
 <h2>GetDeals</h2>
 <a asp-action="CreateDeal">CreateDeal</a>
-<table class="table-bordered">
-    <tr><td>Header</td><td>Description</td><td>Price</td><td>Currency</td></tr>
+<table class="table table-bordered ">
+    <tr ><th>Header</th><th>Description</th><th>Price</th><th>Currency</th></tr>
     @foreach(var item in Model)
     {
         <tr><td>@item.Header</td><td>@item.Description</td><td>@item.Price</td><td>@item.Currency</td></tr>
