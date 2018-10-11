@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,12 @@ namespace AutoDeal
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AutoDeal.Models.AutoDealContext>(options => options.UseSqlServer(connection));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login"); // HMMM?
+                }
+                );
             services.AddMvc();
         }
 
@@ -41,7 +48,7 @@ namespace AutoDeal
             }
 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

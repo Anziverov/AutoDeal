@@ -16,13 +16,18 @@ namespace AutoDeal.Controllers
         {
             db = context;
         }
-        public async Task<IActionResult> GetUsers() 
+        public IActionResult LogIn()
         {
-            return View(await db.Users.ToListAsync());
+            return View(); // TODO: CREATE VIEW
         }
-        public async Task<IActionResult> GetDeals()
+        //TODO: make loginpost method
+        public  IActionResult GetUsers() 
         {
-            return View(await db.Deals.ToListAsync());
+            return View( db.Users.ToList());
+        }
+        public IActionResult GetDeals()
+        {
+            return View( db.Deals.ToList());
         }
         public IActionResult CreateUser()
         {
