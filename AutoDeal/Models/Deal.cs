@@ -7,7 +7,7 @@ namespace AutoDeal.Models
 {
     public class Deal
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Header { get; set; }
         public decimal Price { get; set; }
         public string Currency { get; set; }

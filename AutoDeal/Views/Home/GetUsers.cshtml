@@ -1,0 +1,14 @@
+﻿@model IEnumerable<AutoDeal.Models.User>
+@{
+    ViewData["Title"] = "GetUsers";
+}
+
+<h2>GetUsers</h2>
+<a asp-action="CreateUser">CreateUser</a>
+<table class="table-bordered">
+    <tr><td>NickName</td><td>Name</td><td>Date of Birth</td><td>Password</td></tr>
+    @foreach(var item in Model)
+    {
+        <tr><td>@item.NickName</td><td>@item.Name</td><td>@item.DateOfBirth</td><td>@item.Password</td></tr>
+    }
+</table>
