@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AutoDeal.Models;
 using System.Data.Entity;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace AutoDeal.Controllers
 {
@@ -20,8 +24,46 @@ namespace AutoDeal.Controllers
         {
             return View(); 
         }
+        #region testing
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult LogIn(User model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user =  db.Users.FirstOrDefault(u => u.NickName == model.NickName && u.Password == model.Password);
+                if (user != null)
+                {
+                     Authenticate(model.NickName); // аутентификация
+
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+            }
+            return View(model);
+        }
+
+        private async Task Authenticate(string userName)
+        {
+            // создаем один claim
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+            };
+            // создаем объект ClaimsIdentity
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            // установка аутентификационных куки
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("LogIn", "Home");
+        }
+        #endregion
         //TODO: make loginpost method
-        public  IActionResult GetUsers() 
+        public IActionResult GetUsers() 
         {
             return View( db.Users.ToList());
         }
@@ -51,6 +93,7 @@ namespace AutoDeal.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("GetDeals"); // checking if new Deal appeared
         }
+        [Authorize]
         public IActionResult Index()
         {
             return View();
