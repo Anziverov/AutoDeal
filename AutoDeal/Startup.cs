@@ -28,7 +28,7 @@ namespace AutoDeal
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login"); // HMMM?
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Home/LogIn"); 
                 }
                 );
             services.AddMvc();

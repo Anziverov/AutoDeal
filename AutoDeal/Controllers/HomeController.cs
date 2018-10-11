@@ -18,7 +18,7 @@ namespace AutoDeal.Controllers
         }
         public IActionResult LogIn()
         {
-            return View(); // TODO: CREATE VIEW
+            return View(); 
         }
         //TODO: make loginpost method
         public  IActionResult GetUsers() 
@@ -38,7 +38,7 @@ namespace AutoDeal.Controllers
         {
             db.Users.Add(user);
             await db.SaveChangesAsync();
-            return RedirectToAction("GetUsers"); // checking if new User appeared
+            return RedirectToAction("GetUsers");
         }
         public IActionResult CreateDeal()
         {

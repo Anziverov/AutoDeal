@@ -7,11 +7,12 @@
 <form asp-action="LogIn" asp-controller="Home">
     <div class="form-group">
         <label asp-for="NickName" class="control-label">UserName</label>
-        <input type="text" asp-for="NickName" class="form-control"/>
+        <input required type="text" asp-for="NickName" class="form-control"/>
     </div>
     <div class="form-group">
         <label asp-for="Password" class="control-label">Password</label>
-        <input type="text" asp-for="Password" class="form-control"/>
+        <input required type="password" asp-for="Password" class="form-control" aria-describedby="passwordHelpInline"/>
+        <small id="passwordHelpInline" class="text-muted">No rules for password yet</small>
     </div>
     <div class="form-group">
         <input type="submit" value="Send" asp-action="LogIn" class="btn btn-default"/>
