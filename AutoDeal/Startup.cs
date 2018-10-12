@@ -31,6 +31,7 @@ namespace AutoDeal
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Home/LogIn"); 
                 }
                 );
+            services.AddResponseCompression();
             services.AddMvc();
         }
 
@@ -46,7 +47,7 @@ namespace AutoDeal
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseResponseCompression();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc(routes =>

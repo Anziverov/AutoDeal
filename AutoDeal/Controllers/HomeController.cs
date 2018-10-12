@@ -15,6 +15,7 @@ namespace AutoDeal.Controllers
 {
     public class HomeController : Controller
     {
+        private string userName;
         private AutoDealContext db;
         public HomeController(AutoDealContext context)
         {
@@ -34,7 +35,7 @@ namespace AutoDeal.Controllers
                 User user =  db.Users.FirstOrDefault(u => u.NickName == model.NickName && u.Password == model.Password);
                 if (user != null)
                 {
-                     Authenticate(model.NickName); // аутентификация
+                     Authenticate(model.NickName); // аутентификация 
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -57,7 +58,8 @@ namespace AutoDeal.Controllers
         }
 
         public async Task<IActionResult> Logout()
-        {
+        {   
+            userName = HttpContext.User.Identity.Name;
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("LogIn", "Home");
         }
@@ -93,7 +95,6 @@ namespace AutoDeal.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("GetDeals"); // checking if new Deal appeared
         }
-        [Authorize]
         public IActionResult Index()
         {
             return View();

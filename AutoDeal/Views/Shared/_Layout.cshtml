@@ -42,6 +42,11 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="LogIn">LogIn</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="CreateUser">SignIn</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Logout">LogOut</a></li>
+                    @if (Context.User.Identity.Name != null)
+                    {
+                        <li ><a asp-controller="Home" asp-action="Profile">@Context.User.Identity.Name</a></li>
+
+                    }
                 </ul>
             </div>
         </div>
