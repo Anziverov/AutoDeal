@@ -21,11 +21,15 @@ namespace AutoDeal.Controllers
         {
             db = context;
         }
+        public IActionResult Profile()
+        {
+            return View();
+        }
         public IActionResult LogIn()
         {
             return View(); 
         }
-        #region testing
+        #region authentification
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult LogIn(User model)

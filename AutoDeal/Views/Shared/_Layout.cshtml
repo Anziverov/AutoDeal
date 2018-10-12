@@ -39,12 +39,23 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="LogIn">LogIn</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="CreateUser">SignIn</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Logout">LogOut</a></li>
+                    @if (Context.User.Identity.Name == null)
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="LogIn">LogIn</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="CreateUser">SignIn</a></li>
+                    }
+
                     @if (Context.User.Identity.Name != null)
                     {
-                        <li ><a asp-controller="Home" asp-action="Profile">@Context.User.Identity.Name</a></li>
+                        <li>
+                            <div class="nav dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Context.User.Identity.Name</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">LogOut</a>
+                                </div>
+                            </div>
+                        </li>
 
                     }
                 </ul>
