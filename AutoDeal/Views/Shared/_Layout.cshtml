@@ -30,15 +30,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Cars">Cars</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="GetDeals">Deals</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="GetUsers">Users</a></li>
                 </ul>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search for Auto" aria-label="Search for Auto" />
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </li>
                     @if (Context.User.Identity.Name == null)
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="LogIn">LogIn</a></li>
@@ -48,13 +50,13 @@
                     @if (Context.User.Identity.Name != null)
                     {
                         <li class="nav dropdown">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Context.User.Identity.Name</a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <ul>
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Context.User.Identity.Name</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <ul>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
                                     <li> <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">LogOut</a></li>
-                                    </ul>
-                                </div>
+                                </ul>
+                            </div>
                         </li>
 
                     }

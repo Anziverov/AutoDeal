@@ -21,6 +21,10 @@ namespace AutoDeal.Controllers
         {
             db = context;
         }
+        public IActionResult Cars()
+        {
+            return View();
+        }
         public IActionResult Profile()
         {
             return View(db.Users.FirstOrDefault(d => d.NickName == HttpContext.User.Identity.Name));
