@@ -1,8 +1,13 @@
-﻿
+﻿@model AutoDeal.Models.User
 @{
     ViewData["Title"] = "Profile";
 }
 
 <h2>Profile</h2>
-<ul></ul>
+<ul class="list-group">
+    <li class="list-group-item">NickName: @Model.NickName</li>
+    <li class="list-group-item">Name: @Model.Name</li>
+    <li class="list-group-item">Password: @Model.Password</li>
+    <li class="list-group-item">Date of Birth: @Model.DateOfBirth</li>
+</ul>
 

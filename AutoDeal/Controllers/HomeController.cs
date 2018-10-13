@@ -23,7 +23,7 @@ namespace AutoDeal.Controllers
         }
         public IActionResult Profile()
         {
-            return View();
+            return View(db.Users.FirstOrDefault(d => d.NickName == HttpContext.User.Identity.Name));
         }
         public IActionResult LogIn()
         {
