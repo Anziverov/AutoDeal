@@ -1,14 +1,18 @@
-﻿@model IEnumerable<AutoDeal.Models.Deal>
+﻿@model IEnumerable<AutoDeal.Models.TestDeal>
 @{
     ViewData["Title"] = "GetDeals";
 }
-
 <h2>GetDeals</h2>
 <a asp-action="CreateDeal">CreateDeal</a>
 <table class="table table-bordered">
-    <tr><td>Header</td><td>Description</td><td>Price</td><td>Currency</td></tr>
+    <tr><td>Header</td><td>Description</td><td>Price</td><td>Currency</td><td>Pictures</td><td>OwnerId</td></tr>
     @foreach(var item in Model)
     {
-        <tr><td>@item.Header</td><td>@item.Description</td><td>@item.Price</td><td>@item.Currency</td></tr>
+        <tr><td>@item.Header</td><td>@item.Description</td><td>@item.Price</td><td>@item.Currency</td><td>@item.Owner</td></tr>
+        @foreach(string s in (new PicturesConverter(item.Pictures)).ImagerContainer)
+        {
+            string x = @"/images/Машины/" + s +".jpeg";
+           <tr><td><img src="@x"/></td></tr>
+        }
     }
 </table>

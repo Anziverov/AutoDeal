@@ -1,7 +1,24 @@
-﻿
+﻿@model IEnumerable<TestDeal>
 @{
     ViewData["Title"] = "Cars";
 }
 
 <h2>Cars</h2>
-
+<table class="table">
+    @foreach(var item in Model)
+    {
+        <tr class="table">
+            <td>
+                <h2>@item.Header</h2>
+                <ul class="list-inline" >
+                    @foreach(string path in (new PicturesConverter(item.Pictures)).ImagerContainer)
+                    {
+                        <li ><img src="@path" /></li>
+                    }
+                </ul>
+                <p>@item.Description</p>
+                <p>@item.Price @item.Currency</p>
+            </td>
+        </tr>
+    }
+</table>

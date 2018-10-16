@@ -20,10 +20,18 @@ namespace AutoDeal.Controllers
         public HomeController(AutoDealContext context)
         {
             db = context;
+            #region Testing picture converter
+            //Queue<PicturesConverter> picturesConverters = new Queue<PicturesConverter>();
+            //foreach (TestDeal item in db.TestDeals)
+            //{
+            //    picturesConverters.Enqueue(new PicturesConverter(item.Pictures));
+            //}
+
+            #endregion
         }
         public IActionResult Cars()
         {
-            return View();
+            return View(db.TestDeals.ToList());
         }
         public IActionResult Profile()
         {
@@ -79,7 +87,7 @@ namespace AutoDeal.Controllers
         }
         public IActionResult GetDeals()
         {
-            return View( db.Deals.ToList());
+            return View( db.TestDeals.ToList());
         }
         public IActionResult CreateUser()
         {
@@ -97,9 +105,9 @@ namespace AutoDeal.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateDeal(Deal deal)
+        public async Task<IActionResult> CreateDeal(TestDeal testDeal)
         {
-            db.Deals.Add(deal);
+            db.TestDeals.Add(testDeal);
             await db.SaveChangesAsync();
             return RedirectToAction("GetDeals"); // checking if new Deal appeared
         }
