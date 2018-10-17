@@ -9,7 +9,7 @@
     {
         <tr class="table">
             <td>
-                <h2>@item.Header</h2>
+                <h2><a asp-action="DealDetails">@item.Header</a></h2>
                 <ul class="list-inline" >
                     @foreach(string path in (new PicturesConverter(item.Pictures)).ImagerContainer)
                     {
