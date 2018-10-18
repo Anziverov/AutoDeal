@@ -1,0 +1,15 @@
+﻿@model TestDeal
+@{
+    ViewData["Title"] = "DealDetails";
+}
+
+<h2>@Model.Header</h2>
+<ul class="list-inline">
+    @foreach(string item in (new PicturesConverter(Model.Pictures)).ImagerContainer)
+    {
+        <li><img src="@item"/></li>
+    }
+</ul>
+<p>@Model.Description</p>
+<p><h2>@Model.Price <span class="badge badge-secondary">@Model.Currency</span></h2></p>
+

@@ -29,6 +29,10 @@ namespace AutoDeal.Controllers
 
             #endregion
         }
+        public IActionResult DealDetails()
+        {
+            return View(db.TestDeals.FirstOrDefault(d => d.Id == int.Parse(Request.QueryString.Value)));
+        }
         public IActionResult Cars()
         {
             return View(db.TestDeals.ToList());

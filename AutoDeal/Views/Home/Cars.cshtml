@@ -9,14 +9,13 @@
     {
         <tr class="table">
             <td>
-                <h2><a asp-action="DealDetails">@item.Header</a></h2>
+                <h2>@Html.ActionLink(item.Header,"DealDetails","Home",item.Id)</h2>
                 <ul class="list-inline" >
                     @foreach(string path in (new PicturesConverter(item.Pictures)).ImagerContainer)
                     {
                         <li ><img src="@path" /></li>
                     }
                 </ul>
-                <p>@item.Description</p>
                 <p>@item.Price @item.Currency</p>
             </td>
         </tr>
