@@ -9,7 +9,7 @@
     {
         <tr class="table">
             <td>
-                <h2>@Html.ActionLink(item.Header,"DealDetails","Home",item.Id)</h2>
+                <h2>@Html.ActionLink(item.Header,"DealDetails","Home",new { id=item.Id },null)</h2>
                 <ul class="list-inline" >
                     @foreach(string path in (new PicturesConverter(item.Pictures)).ImagerContainer)
                     {

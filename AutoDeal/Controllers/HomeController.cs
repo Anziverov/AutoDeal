@@ -29,9 +29,11 @@ namespace AutoDeal.Controllers
 
             #endregion
         }
-        public IActionResult DealDetails()
+        public IActionResult DealDetails(int id)
         {
-            return View(db.TestDeals.FirstOrDefault(d => d.Id == int.Parse(Request.QueryString.Value)));
+            ViewData["ContactPhone"] = (db.Users.FirstOrDefault(user => user.Id == (db.TestDeals.FirstOrDefault(testDeal => testDeal.Id == id).Owner))).PhoneNumber; //TODO: need to check if new var will be faster
+            return View(db.TestDeals.FirstOrDefault(d => d.Id == id));
+            //return View(db.TestDeals.FirstOrDefault(d => d.Id == int.Parse(Request.QueryString.Value)));
         }
         public IActionResult Cars()
         {

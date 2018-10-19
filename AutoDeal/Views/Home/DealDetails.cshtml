@@ -4,6 +4,7 @@
 }
 
 <h2>@Model.Header</h2>
+<h3>Contact Phone: @ViewData["ContactPhone"]</h3>
 <ul class="list-inline">
     @foreach(string item in (new PicturesConverter(Model.Pictures)).ImagerContainer)
     {

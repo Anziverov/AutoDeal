@@ -11,8 +11,7 @@
         <tr><td>@item.Header</td><td>@item.Description</td><td>@item.Price</td><td>@item.Currency</td><td>@item.Owner</td></tr>
         @foreach(string s in (new PicturesConverter(item.Pictures)).ImagerContainer)
         {
-            string x = @"/images/Машины/" + s +".jpeg";
-           <tr><td><img src="@x"/></td></tr>
+           <tr><td><img src="@s"/></td></tr>
         }
     }
 </table>
