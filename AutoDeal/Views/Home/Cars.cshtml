@@ -6,24 +6,29 @@
 <h2>Cars</h2>
 @if (Model != null)
 {
-    <table class="table">
-        @foreach (var item in Model)
-        {
-            <tr class="table">
-                <td>
-                    <h2>@Html.ActionLink(item.Header, "DealDetails", "Home", new { id = item.Id }, null)</h2>
-                    <ul class="list-inline">
-                        @foreach (string path in (new PicturesConverter(item.Pictures)).ImagerContainer)
-                        {
-                            <li><img src="@path" /></li>
-                        }
-                    </ul>
-                    <p>@item.Price @item.Currency</p>
-                </td>
-            </tr>
-        }
-    </table>
+    if (Model.Count() != 0)
+    {
+        <table class="table">
+            @foreach (var item in Model)
+            {
+                <tr class="table">
+                    <td>
+                        <h2>@Html.ActionLink(item.Header, "DealDetails", "Home", new { id = item.Id }, null)</h2>
+                        <ul class="list-inline">
+                            @foreach (string path in (new PicturesConverter(item.Pictures)).ImagerContainer)
+                            {
+                                <li><img src="@path" /></li>
+                            }
+                        </ul>
+                        <p>@item.Price @item.Currency</p>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else { <h2>No results =(</h2> }
 
 }
-else {<h2>Ooops. No cars here =(</h2> }
-    
+else
+{<h2>Ooops. No cars here =(</h2>}
+
