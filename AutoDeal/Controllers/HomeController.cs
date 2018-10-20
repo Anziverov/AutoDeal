@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Text.RegularExpressions;
 
 namespace AutoDeal.Controllers
 {
@@ -20,20 +21,25 @@ namespace AutoDeal.Controllers
         public HomeController(AutoDealContext context)
         {
             db = context;
-            #region Testing picture converter
-            //Queue<PicturesConverter> picturesConverters = new Queue<PicturesConverter>();
-            //foreach (TestDeal item in db.TestDeals)
-            //{
-            //    picturesConverters.Enqueue(new PicturesConverter(item.Pictures));
-            //}
-
-            #endregion
+        }
+        public IActionResult SearchDeals(string searchString)
+        {
+            Regex regex = new Regex(searchString);
+            List<TestDeal> searchResult = new List<TestDeal>();
+            foreach (TestDeal item in db.TestDeals.ToList())
+            {
+                if(regex.IsMatch(item.Header))
+                {
+                    searchResult.Add(item);
+                }
+                    
+            }
+            return View("Cars",searchResult);
         }
         public IActionResult DealDetails(int id)
         {
             ViewData["ContactPhone"] = (db.Users.FirstOrDefault(user => user.Id == (db.TestDeals.FirstOrDefault(testDeal => testDeal.Id == id).Owner))).PhoneNumber; //TODO: need to check if new var will be faster
             return View(db.TestDeals.FirstOrDefault(d => d.Id == id));
-            //return View(db.TestDeals.FirstOrDefault(d => d.Id == int.Parse(Request.QueryString.Value)));
         }
         public IActionResult Cars()
         {

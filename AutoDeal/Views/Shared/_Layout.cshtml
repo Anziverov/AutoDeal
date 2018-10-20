@@ -36,9 +36,9 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search for Auto" aria-label="Search for Auto" />
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <form class="form-inline" asp-action="SearchDeals" method="post">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search for Auto" aria-label="Search for Auto" name="searchString" />
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
                         </form>
                     </li>
                     @if (Context.User.Identity.Name == null)
