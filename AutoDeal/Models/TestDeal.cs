@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AutoDeal.Models
 {
-    public class TestDeal
+    public sealed class TestDeal
     {
         public int Id { get; set; }
         public string Header { get; set; }

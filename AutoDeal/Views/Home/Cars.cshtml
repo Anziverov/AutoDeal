@@ -15,7 +15,7 @@
                     <td>
                         <h2>@Html.ActionLink(item.Header, "DealDetails", "Home", new { id = item.Id }, null)</h2>
                         <ul class="list-inline">
-                            @foreach (string path in (new PicturesConverter(item.Pictures)).ImagerContainer)
+                            @foreach (string path in (new PicturesConverter().PicturesConverterMini(item.Pictures)))
                             {
                                 <li><img src="@path" /></li>
                             }

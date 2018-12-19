@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AutoDeal.Models
 {
-    public class AutoDealContext : DbContext
+    public sealed class AutoDealContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<TestDeal> TestDeals { get; set; }

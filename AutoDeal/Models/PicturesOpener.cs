@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoDeal.Models
 {
-    public class PicturesOpener
+    public sealed class PicturesOpener
     {
         string picturePath;
         public PicturesOpener(string pic)

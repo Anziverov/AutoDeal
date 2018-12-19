@@ -11,6 +11,9 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Http;
+using System.Text;
+using System.IO;
 
 namespace AutoDeal.Controllers
 {
@@ -97,10 +100,6 @@ namespace AutoDeal.Controllers
         {
             return View( db.Users.ToList());
         }
-        public IActionResult GetDeals()
-        {
-            return View( db.TestDeals.ToList());
-        }
         public IActionResult CreateUser()
         {
             return View();
@@ -117,30 +116,47 @@ namespace AutoDeal.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateDeal(TestDeal testDeal)
+        public async Task<IActionResult> CreateDeal(TestDeal testDeal,IFormFile[] photos)
         {
-            db.TestDeals.Add(testDeal);
-            await db.SaveChangesAsync();
-            return RedirectToAction("GetDeals"); // checking if new Deal appeared
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                if (photos != null || photos.Length != 0)
+                {
+                    //Stringuilder or just string?
+
+                    string pathString = "";
+                    foreach (IFormFile photo in photos)
+                    {
+                        var writePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/images/Машины/", testDeal.Header, photo.FileName);
+                        Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/images/Машины/", testDeal.Header));// НЕ СЛИШКОМ ЛИ КОСТЫЛЬНО?
+                        Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/images/Машины/", "Miniatures", testDeal.Header ));
+                        var stream = new FileStream(writePath, FileMode.Create);
+                        using (stream)
+                        {
+                            await photo.CopyToAsync(stream); // DO I NEED AWAIT AND USING HERE? 
+                        }
+                        PictureMiniatureConverter.Convert(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/images/Машины/", "Miniatures", testDeal.Header, photo.FileName), writePath, 80, 80);
+                        pathString += testDeal.Header + @"/" + photo.FileName + @";";
+                    }
+                    testDeal.Pictures = pathString;
+
+                    testDeal.Owner = db.Users.FirstOrDefault(d => d.NickName == HttpContext.User.Identity.Name).Id;
+                
+               
+
+                }
+
+                db.TestDeals.Add(testDeal);
+                await db.SaveChangesAsync();
+            }
+            return RedirectToAction("Cars"); // checking if new Deal appeared
+
         }
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Cars");
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
 
         public IActionResult Error()
         {
