@@ -95,7 +95,6 @@ namespace AutoDeal.Controllers
             return RedirectToAction("LogIn", "Home");
         }
         #endregion
-        //TODO: make loginpost method
         public IActionResult GetUsers() 
         {
             return View( db.Users.ToList());

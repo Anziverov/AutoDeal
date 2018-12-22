@@ -31,11 +31,28 @@ namespace AutoDeal.Models
         public List<string> PicturesConverterMini(string images, int miniaturesAmount = 0)
         {
             imagesPath = images;
-            imageList = imagesPath.Split(';',StringSplitOptions.RemoveEmptyEntries).ToList(); 
-            for (int i = 0; i < imageList.Count; i++)
+            imageList = imagesPath.Split(';',StringSplitOptions.RemoveEmptyEntries).ToList();
+            if (miniaturesAmount != 0) /////?????
             {
-                if (imageList[i].Length != 0 || imageList[i] != "") // Костыль? 
-                    imageList[i] = rootMiniaturesPath + imageList[i];
+                for (int i = 0; i < miniaturesAmount; i++)
+                {
+                    if (imageList[i].Length != 0 || imageList[i] != "") // Костыль? 
+                        imageList[i] = rootMiniaturesPath + imageList[i];
+                }
+                List<string> shortList = new List<string>(3);
+                for(int i = 0; i < 3; i++)
+                {
+                    shortList.Add(imageList[i]);
+                }
+                return shortList;
+            }
+            else
+            {
+                for (int i = 0; i < imageList.Count; i++)
+                {
+                    if (imageList[i].Length != 0 || imageList[i] != "") // Костыль? 
+                        imageList[i] = rootMiniaturesPath + imageList[i];
+                }
             }
             return imageList;
         }

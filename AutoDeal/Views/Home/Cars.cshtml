@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Cars";
 }
-
 <h2>Cars</h2>
 @if (Model != null)
 {
@@ -15,7 +14,7 @@
                     <td>
                         <h2>@Html.ActionLink(item.Header, "DealDetails", "Home", new { id = item.Id }, null)</h2>
                         <ul class="list-inline">
-                            @foreach (string path in (new PicturesConverter().PicturesConverterMini(item.Pictures)))
+                            @foreach (string path in (new PicturesConverter().PicturesConverterMini(item.Pictures,3)))
                             {
                                 <li><img src="@path" /></li>
                             }
